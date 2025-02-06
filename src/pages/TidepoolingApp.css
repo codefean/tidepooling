@@ -1,0 +1,194 @@
+/* Import Cool Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+/* General Styling */
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #f8d7ff, #cce7ff);
+    color: #000000;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Main Container */
+.container {
+    max-width: 600px;
+    background: #f8d7ff00;
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    border-radius: 12px;
+    transition: all 0.3s ease-in-out;
+}
+
+.container:hover {
+    transform: translateY(-5px);
+}
+
+h1 {
+    text-align: center;
+    font-size: 1.9rem; /* Default size for larger screens */
+    color: #0077cc;
+    font-weight: 600;
+}
+
+/* Adjust for tablets and smaller screens */
+@media (max-width: 1024px) {
+    h1 {
+        font-size: 1.75rem;
+    }
+}
+
+/* Adjust for mobile phones */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+}
+
+
+/* Category Headers */
+.category-header {
+    display: flex;
+    justify-content: center; /* Centers all content horizontally */
+    align-items: center; /* Centers items vertically */
+    background: #0077cc;
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    margin-top: 10px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    gap: 10px; /* Adds spacing between text and arrow */
+}
+
+
+.category-header:hover {
+    background: #ed92ec;
+}
+
+.species-card {
+    display: flex;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.503);
+    border-radius: 10px;
+    padding: 12px;
+    margin: 10px 0;
+    transition: transform 0.2s ease-in-out;
+    position: relative;
+    align-items: center;
+    margin-top: 25px;
+    justify-content: center;
+    text-align: center;
+    font-weight: bold;
+}
+
+.species-card:hover {
+    transform: scale(1.03);
+}
+
+/* Fun Checkbox Styling */
+.species-checkbox {
+    position: absolute;
+    bottom: -15px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    accent-color: #f295c4;
+    appearance: none;
+    border: 3px solid #f18dbf;
+    border-radius: 50%;
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+}
+/* Checkbox Styling */
+input[type="checkbox"] {
+    transform: scale(1.3);
+    margin-right: 10px;
+    cursor: pointer;
+    accent-color: #f99fcc;
+}
+
+/* Fun Checkbox Hover Effect */
+.species-checkbox:hover {
+    transform: scale(1.2);
+    border-color: #fb89b7;
+}
+
+/* Checkbox Checked State */
+.species-checkbox:checked {
+    background: linear-gradient(135deg, #ed96c2, #ff99cc);
+    border-color: white;
+    animation: bounce 0.4s ease-in-out;
+}
+
+/* Checkbox Icon */
+.species-checkbox:checked::after {
+    content: '✔';
+    font-size: 20px;
+    color: white;
+    font-weight: bold;
+    display: block;
+}
+
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .container {
+        max-width: 90%;
+    }
+
+    h1 {
+        font-size: 1.6rem;
+    }
+
+    .category-title {
+        font-size: 1rem;
+    }
+
+    .search-bar,
+    .reset-button {
+        font-size: 1rem;
+    }
+}
+
+/* Bounce Animation */
+@keyframes bounce {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.4); }
+    100% { transform: scale(1); }
+}
+
+.species-card img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+}
+
+.copy-button {
+    display: block; /* Ensures full-width block behavior */
+    margin: 20px auto; /* Centers horizontally */
+    background-color: #0077b6;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+    text-align: center;
+  }
+  
+  .copy-button:hover {
+    background-color: #ff9ad5;
+  }
