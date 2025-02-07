@@ -12,39 +12,35 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    background-attachment: fixed; /* Keeps background consistent */
 }
 
 /* Main Container */
 .container {
-    max-width: 600px;
+    max-width: 500px;
     background: #f8d7ff00;
     backdrop-filter: blur(10px);
-    padding: 20px;
+    padding: 15px;
     border-radius: 12px;
     transition: all 0.3s ease-in-out;
 }
 
-.container:hover {
-    transform: translateY(-5px);
-}
-
-/* Import a Fun Font */
+/* Import Fun Font */
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Fredoka:wght@300;500&display=swap');
 
 h1 {
     text-align: center;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     font-weight: 600;
     font-family: 'Poppins', sans-serif;
     font-style: italic;
     background: linear-gradient(135deg, #2832f6, #6699ff);
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent; /* Creates a color gradient effect */
+    -webkit-text-fill-color: transparent;
     animation: wave 8s infinite ease-in-out alternate;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: -30px;
 }
 
 /* Fun Wave Animation */
@@ -53,68 +49,71 @@ h1 {
     100% { transform: rotate(2deg); }
 }
 
-/* Adjust for mobile */
-@media (max-width: 600px) {
-    h1 {
-        font-size: 1.6rem;
-    }
-}
-
-
+/* Prevent Zoom on Category Click */
 .category-header {
     display: flex;
-    justify-content: center; /* Centers all content horizontally */
-    align-items: center; /* Centers items vertically */
+    justify-content: center;
+    align-items: center;
     background: #0077cc;
     color: white;
-    padding: 12px;
+    padding: 10px;
     border-radius: 6px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
-    margin: 10px auto; /* Centers the element horizontally */
+    margin: 10px auto;
     text-align: center;
     font-weight: bold;
-    font-size: 1.2rem;
-    gap: 10px; /* Adds spacing between text and arrow */
-    max-width: 400px; /* Adjust width as needed */
-    width: 80%; /* Responsive width */
-    height: 40px; /* Increased height */
+    font-size: 1.1rem;
+    gap: 10px;
+    max-width: 350px;
+    width: 80%;
+    height: 35px;
+    touch-action: manipulation; /* Prevents zoom on mobile */
 }
-
-
 
 .category-header:hover {
     background: #ed92ec;
 }
 
+/* Smaller Species Cards */
+/* Species Cards */
 .species-card {
     display: flex;
     flex-direction: column;
     background: rgba(255, 255, 255, 0.503);
-    border-radius: 10px;
-    padding: 12px;
-    margin: 10px 0;
+    border-radius: 8px;
+    padding: 10px;
+    margin: 10px 0; /* Spacing between cards */
     transition: transform 0.2s ease-in-out;
     position: relative;
-    align-items: center;
-    margin-top: 25px;
+    align-items: center; /* Centers content within the card */
     justify-content: center;
     text-align: center;
     font-weight: bold;
+    margin: 10px auto;
+    width: 80%; /* Adjusted for consistent alignment */
+    max-width: 300px;
 }
 
 .species-card:hover {
-    transform: scale(1.03);
+    transform: scale(1.02);
+}
+
+/* Smaller Images */
+.species-card img {
+    display: block;
+    max-width: 90%;
+    height: auto;
+    margin: 0 auto;
 }
 
 /* Fun Checkbox Styling */
 .species-checkbox {
-    position: relative; /* Remove absolute positioning to avoid overlap */
-    width: 35px;
-    height: 35px;
+    width: 30px;
+    height: 30px;
     cursor: pointer;
     appearance: none;
-    border: 3px solid #f18dbf;
+    border: 2px solid #f18dbf;
     border-radius: 50%;
     transition: all 0.3s ease-in-out;
     display: flex;
@@ -122,13 +121,7 @@ h1 {
     justify-content: center;
     background: white;
     outline: none;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.15);
-}
-
-/* Fun Checkbox Hover Effect */
-.species-checkbox:hover {
-    transform: scale(1.1);
-    border-color: #fb89b7;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
 /* Checkbox Checked State */
@@ -136,107 +129,75 @@ h1 {
     background: linear-gradient(135deg, #efa9cc, #ff99cc);
     border-color: white;
     animation: bounce 0.4s ease-in-out;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
 }
 
 /* Checkbox Icon */
 .species-checkbox:checked::after {
-    content: '🐙';  /* Use a fun emoji instead of ✔ */
-    font-size: 31px;
+    content: '🐙';
+    font-size: 28px;
     color: white;
     font-weight: bold;
     display: block;
 }
 
-/* Bounce Animation */
-@keyframes bounce {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.2); }
-    100% { transform: scale(1); }
-}
-
-/* Align Checkbox with Species Info */
-.species-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    position: relative;
-    padding: 15px;
-    background: rgba(255, 255, 255, 0.65);
-    border-radius: 10px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease-in-out;
-}
-
-.species-card:hover {
-    transform: scale(1.03);
-}
-
-/* Adjust the checkbox to sit neatly below the description */
-.species-checkbox {
-    margin-top: 10px;
-}
-
-
-/* Mobile Responsive */
-@media (max-width: 768px) {
-    .container {
-        max-width: 90%;
-    }
-
-    h1 {
-        font-size: 1.6rem;
-    }
-
-    .category-title {
-        font-size: 1rem;
-    }
-
-    .search-bar,
-    .reset-button {
-        font-size: 1rem;
-    }
-}
-
-/* Bounce Animation */
-@keyframes bounce {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.4); }
-    100% { transform: scale(1); }
-}
-
-.species-card img {
-    display: block;
-    max-width: 100%;
-    height: auto;
-    margin: 0 auto;
-}
-
+/* Copy Species Button */
 .copy-button {
-    display: block; /* Ensures full-width block behavior */
-    margin: 20px auto; /* Centers horizontally */
+    display: block;
+    margin: 15px auto;
     background-color: #f79afef2;
     color: white;
     border: none;
-    padding: 12px 20px;
-    font-size: 16px;
+    padding: 10px 18px;
+    font-size: 14px;
     border-radius: 8px;
     cursor: pointer;
     transition: 0.3s;
     text-align: center;
-  }
-  
-  .copy-button:hover {
-    background-color: #ab9aff;
-  }
+    font-weight: bold;
+}
 
-  .footer {
+.copy-button:hover {
+    background-color: #ab9aff;
+}
+
+/* Footer */
+.footer {
     position: fixed;
     bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
-    color: white;
+    color: rgb(255, 255, 255);
     text-align: center;
     font-size: 12px;
-  }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .container {
+        max-width: 85%;
+    }
+
+    h1 {
+        font-size: 1.4rem;
+    }
+
+    .category-header {
+        font-size: 1rem;
+        height: 32px;
+    }
+
+    .species-card {
+        width: 75%;
+        max-width: 280px;
+    }
+
+    .species-card img {
+        max-width: 85%;
+    }
+
+    .footer {
+        font-size: 10px;
+        padding: 3px 6px;
+    }
+}
