@@ -28,29 +28,39 @@ body {
     transform: translateY(-5px);
 }
 
+/* Import a Fun Font */
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Fredoka:wght@300;500&display=swap');
+
 h1 {
     text-align: center;
-    font-size: 1.9rem; /* Default size for larger screens */
-    color: #0077cc;
+    font-size: 1.5rem;
     font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    font-style: italic;
+    background: linear-gradient(135deg, #2832f6, #6699ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; /* Creates a color gradient effect */
+    animation: wave 8s infinite ease-in-out alternate;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: -30px;
 }
 
-/* Adjust for tablets and smaller screens */
-@media (max-width: 1024px) {
-    h1 {
-        font-size: 1.75rem;
-    }
+/* Fun Wave Animation */
+@keyframes wave {
+    0% { transform: rotate(-2deg); }
+    100% { transform: rotate(2deg); }
 }
 
-/* Adjust for mobile phones */
+/* Adjust for mobile */
 @media (max-width: 600px) {
     h1 {
-        font-size: 1.5rem;
+        font-size: 1.6rem;
     }
 }
 
 
-/* Category Headers */
 .category-header {
     display: flex;
     justify-content: center; /* Centers all content horizontally */
@@ -58,15 +68,19 @@ h1 {
     background: #0077cc;
     color: white;
     padding: 12px;
-    border-radius: 8px;
+    border-radius: 6px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
-    margin-top: 10px;
+    margin: 10px auto; /* Centers the element horizontally */
     text-align: center;
     font-weight: bold;
     font-size: 1.2rem;
     gap: 10px; /* Adds spacing between text and arrow */
+    max-width: 400px; /* Adjust width as needed */
+    width: 80%; /* Responsive width */
+    height: 40px; /* Increased height */
 }
+
 
 
 .category-header:hover {
@@ -95,12 +109,10 @@ h1 {
 
 /* Fun Checkbox Styling */
 .species-checkbox {
-    position: absolute;
-    bottom: -15px;
-    width: 30px;
-    height: 30px;
+    position: relative; /* Remove absolute positioning to avoid overlap */
+    width: 35px;
+    height: 35px;
     cursor: pointer;
-    accent-color: #f295c4;
     appearance: none;
     border: 3px solid #f18dbf;
     border-radius: 50%;
@@ -109,35 +121,61 @@ h1 {
     align-items: center;
     justify-content: center;
     background: white;
-}
-/* Checkbox Styling */
-input[type="checkbox"] {
-    transform: scale(1.3);
-    margin-right: 10px;
-    cursor: pointer;
-    accent-color: #f99fcc;
+    outline: none;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.15);
 }
 
 /* Fun Checkbox Hover Effect */
 .species-checkbox:hover {
-    transform: scale(1.2);
+    transform: scale(1.1);
     border-color: #fb89b7;
 }
 
 /* Checkbox Checked State */
 .species-checkbox:checked {
-    background: linear-gradient(135deg, #ed96c2, #ff99cc);
+    background: linear-gradient(135deg, #efa9cc, #ff99cc);
     border-color: white;
     animation: bounce 0.4s ease-in-out;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* Checkbox Icon */
 .species-checkbox:checked::after {
-    content: '✔';
-    font-size: 20px;
+    content: '🐙';  /* Use a fun emoji instead of ✔ */
+    font-size: 31px;
     color: white;
     font-weight: bold;
     display: block;
+}
+
+/* Bounce Animation */
+@keyframes bounce {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+/* Align Checkbox with Species Info */
+.species-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.65);
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+}
+
+.species-card:hover {
+    transform: scale(1.03);
+}
+
+/* Adjust the checkbox to sit neatly below the description */
+.species-checkbox {
+    margin-top: 10px;
 }
 
 
@@ -178,7 +216,7 @@ input[type="checkbox"] {
 .copy-button {
     display: block; /* Ensures full-width block behavior */
     margin: 20px auto; /* Centers horizontally */
-    background-color: #0077b6;
+    background-color: #f79afef2;
     color: white;
     border: none;
     padding: 12px 20px;
@@ -190,5 +228,15 @@ input[type="checkbox"] {
   }
   
   .copy-button:hover {
-    background-color: #ff9ad5;
+    background-color: #ab9aff;
+  }
+
+  .footer {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    text-align: center;
+    font-size: 12px;
   }

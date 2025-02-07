@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./TidepoolingApp.css";
 
+
 //cd /Users/seanfagan/Desktop/tidepooling-app2
 
 const speciesList = [
@@ -128,25 +129,40 @@ const TidepoolingApp = () => {
   };
 
   const copyCheckedSpecies = () => {
-    const selectedSpecies = Object.keys(checkedSpecies).filter(
+    const selectedScientificNames = Object.keys(checkedSpecies).filter(
       (key) => checkedSpecies[key]
     );
-
-    if (selectedSpecies.length === 0) {
+  
+    if (selectedScientificNames.length === 0) {
       alert("You haven't checked any species yet!");
       return;
     }
-
-    const speciesText = selectedSpecies.join(", ");
+  
+    // Map scientific names back to common names
+    const selectedCommonNames = selectedScientificNames.map((scientificName) => {
+      let commonName = "";
+      speciesList.forEach((group) => {
+        const speciesMatch = group.species.find(
+          (species) => species.scientific === scientificName
+        );
+        if (speciesMatch) {
+          commonName = speciesMatch.name;
+        }
+      });
+      return commonName;
+    });
+  
+    const speciesText = selectedCommonNames.join(", ");
     navigator.clipboard.writeText(`I saw these tidepool species: ${speciesText}`).then(() => {
       alert("Copied to clipboard! Paste it into a message to share.");
     });
-    };
+  };
+  
 
 
 return (
     <div className="container">
-      <h1 className="title">ANNA GOES TIDEPOOLING IN JUNEAU</h1>
+      <h1 className="title">ANNA GOES TIDEPOOLING</h1>
 
       {speciesList.map((group) => (
         <div key={group.category} className="category-container">
@@ -189,6 +205,8 @@ return (
   Copy My Species List to Share 📋
 </button>
 
+{/* Footer */}
+<footer className="footer">made by sean</footer>
     </div>
   );
 };
