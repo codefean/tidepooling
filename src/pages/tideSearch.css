@@ -4,7 +4,6 @@
   display: block; /* Change from inline-block */
   margin: 0 auto;
   width: 100%;
-  max-width: 400px;
   
 }
 
@@ -23,7 +22,13 @@
   overflow-y: auto;
   border-radius: 5px;
   background: #ffffffbe;
+  margin-left: 15px;
+  width: 88%;
+  max-width: 230px !important; /* Adjust as needed */
 }
+
+
+
 
 /* Individual search result */
 .search-result {
@@ -67,6 +72,6 @@
   }
 
   .search-results {
-    max-height: 15rem; /* Increase height for better scrolling */
+    max-height: 15rem;/* Increase height for better scrolling */
   }
 }
