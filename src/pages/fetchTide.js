@@ -49,18 +49,25 @@ export const fetchTideLevel = async (setTideLevel) => {
       tideLevelText = `Current: ${tideDescription} (${tideTrend}), ${latestTideFeet} ft`;
     }
 
-    // 🔹 Process Next Two Low Tide Predictions
+    // 🔹 Process Upcoming Low Tide Predictions
     if (predictedTideData.predictions) {
       const lowTides = predictedTideData.predictions.filter((prediction) => prediction.type === "L");
 
-      if (lowTides.length > 0) {
-        // Process first low tide
-        const nextLowTide = new Date(lowTides[0].t);
-        const nextLowTideFeet = parseFloat(lowTides[0].v).toFixed(2);
-        nextLowTideText = `Next Low Tide: ${nextLowTide.toLocaleTimeString("en-US", { hour: "numeric", minute: "numeric", hour12: true, timeZone: "America/Juneau" })}, ${nextLowTideFeet} ft`;
+      const now = new Date();
+      const validTides = lowTides.filter((tide) => new Date(tide.t) > now); // Only show future tides
+
+      if (validTides.length > 0) {
+        // Process the next valid low tide
+        const nextLowTide = new Date(validTides[0].t);
+        const nextLowTideFeet = parseFloat(validTides[0].v).toFixed(2);
+        nextLowTideText = `Next Low Tide: ${nextLowTide.toLocaleTimeString("en-US", {
+          hour: "numeric",
+          minute: "numeric",
+          hour12: true,
+          timeZone: "America/Juneau",
+        })}, ${nextLowTideFeet} ft`;
 
         // Calculate time until next low tide
-        const now = new Date();
         const timeDifference = nextLowTide - now;
         if (timeDifference > 0) {
           const hours = Math.floor(timeDifference / (1000 * 60 * 60));
@@ -69,16 +76,21 @@ export const fetchTideLevel = async (setTideLevel) => {
         }
       }
 
-      if (lowTides.length > 1) {
-        // Process second next low tide
-        const secondLowTide = new Date(lowTides[1].t);
-        const secondLowTideFeet = parseFloat(lowTides[1].v).toFixed(2);
-        secondLowTideText = `Later Low Tide: ${secondLowTide.toLocaleTimeString("en-US", { hour: "numeric", minute: "numeric", hour12: true, timeZone: "America/Juneau" })}, ${secondLowTideFeet} ft`;
+      if (validTides.length > 1) {
+        // Process the second valid low tide
+        const secondLowTide = new Date(validTides[1].t);
+        const secondLowTideFeet = parseFloat(validTides[1].v).toFixed(2);
+        secondLowTideText = `Later Low Tide: ${secondLowTide.toLocaleTimeString("en-US", {
+          hour: "numeric",
+          minute: "numeric",
+          hour12: true,
+          timeZone: "America/Juneau",
+        })}, ${secondLowTideFeet} ft`;
       }
     }
 
     // Update state with **multi-line** formatted tide info
-    setTideLevel(`${tideLevelText}\n${nextLowTideText}${timeUntilLowTide}\n${secondLowTideText}`);
+    setTideLevel(`${tideLevelText}\n${nextLowTideText}\n${secondLowTideText}`);
   } catch (error) {
     console.error("Error fetching tide level:", error);
     setTideLevel("⚠️ Tide data unavailable. Please try again later.");
