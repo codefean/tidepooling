@@ -21,17 +21,13 @@
   margin-top: 0.5rem;
   max-height: 10rem;
   overflow-y: auto;
-  border: 1px solid #ddd;
   border-radius: 5px;
   background: #ffffffbe;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
 
 /* Individual search result */
 .search-result {
-  padding: 0.5rem;
+  padding: 0.3rem;
   cursor: pointer;
   transition: background 0.2s ease-in-out;
 }
@@ -46,7 +42,6 @@
   background: none;
   border: none;
   font-size: 1rem;
-  text-align: left;
   cursor: pointer;
   padding: 0;
 }
