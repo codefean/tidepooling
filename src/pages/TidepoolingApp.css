@@ -23,6 +23,7 @@ body {
     padding: 15px;
     border-radius: 12px;
     transition: all 0.3s ease-in-out;
+    margin: auto;
 }
 
 /* Import Fun Font */
@@ -186,8 +187,7 @@ h1 {
   .tide-title {
     font-size: 1.1rem;
     font-weight: bold;
-    color: #f06ffa; /* Ocean blue */
-    margin-bottom: 1px;
+    color: #f06ffa;
     margin-top: -5px;
     line-height: .05;
   }
@@ -198,6 +198,7 @@ h1 {
     font-weight: normal;
     color: #333; /* Dark gray */
     margin-bottom: -2px;
+    line-height: 9px;
   }
 
 /* Search Bar Container */
@@ -277,5 +278,21 @@ h1 {
     .footer {
         font-size: 10px;
         padding: 3px 6px;
+    }
+}
+
+@media (max-width: 768px) {
+    .tide-container {
+        width: 100%;
+        max-width: 350px;
+        padding: 15px;
+    }
+
+    .tide-title {
+        font-size: 1.1rem;
+    }
+
+    .tide-data {
+        font-size: 0.95rem;
     }
 }
