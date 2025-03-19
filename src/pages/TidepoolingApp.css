@@ -167,7 +167,7 @@ h1 {
     bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
-    color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
     text-align: center;
     font-size: 12px;
 }
