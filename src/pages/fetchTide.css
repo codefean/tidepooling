@@ -1,7 +1,8 @@
 .tide-container {
+  margin: auto;
   text-align: center;
+  margin-left: -14px; /* Move 20px to the left */
 }
-
 
 /* Bold, large font for the tide title */
 .tide-title {
