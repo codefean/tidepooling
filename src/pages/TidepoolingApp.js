@@ -1,83 +1,12 @@
 import React, { useState, useEffect } from "react";
+import speciesList from "./speciesList"; // Importing the species list
 import "./TidepoolingApp.css";
-
-
-//cd /Users/seanfagan/Desktop/tidepooling-app2
-
-const speciesList = [
-    {
-      category: "Mollusks",
-      species: [
-        { name: "Black Katy Chiton", scientific: "Katharina tunicata", description: "A large, dark-colored chiton commonly found on rocky shores." },
-        { name: "Gumboot Chiton", scientific: "Cryptochiton stelleri", description: "The largest chiton species, also known as the 'wandering meatloaf'." },
-        { name: "Pacific Blue Mussel", scientific: "Mytilus trossulus", description: "A common bivalve that forms dense clusters on rocks." },
-        { name: "Pacific Razor Clam", scientific: "Siliqua patula", description: "A fast-burrowing clam found in sandy beaches." },
-        { name: "Littorine Periwinkles", scientific: "Littorina", description: "Small marine snails that cling to rocks in the intertidal zone." },
-        { name: "Oregon Triton", scientific: "Fusitriton oregonensis", description: "A large predatory snail that feeds on other mollusks." },
-        { name: "Checkered Periwinkle", scientific: "Littorina scutulata", description: "A small, checkered-patterned snail found in the upper intertidal zone." },
-        { name: "Leafy Hornmouth Snail", scientific: "Ceratostoma foliatum", description: "A spiny marine snail with distinctive leafy projections on its shell." },
-        { name: "Wrinkled Whelk", scientific: "Nucella lamellosa", description: "A carnivorous snail that preys on barnacles and mussels." },
-      ],
-    },
-    {
-      category: "Cephalopods",
-      species: [
-        { name: "Giant Pacific Octopus", scientific: "Enteroctopus dofleini", description: "The largest species of octopus, known for its intelligence and camouflage abilities." },
-        { name: "Red Octopus", scientific: "Octopus rubescens", description: "A small, reddish-brown octopus that inhabits tide pools and rocky shores." },
-      ],
-    },
-    {
-      category: "Crustaceans",
-      species: [
-        { name: "Acorn Barnacles", scientific: "Balanus glandula", description: "Small, volcano-shaped barnacles that attach to rocks and other hard surfaces." },
-        { name: "Thatched Barnacle", scientific: "Semibalanus cariosus", description: "A large barnacle with a rough, conical shell." },
-        { name: "Dungeness Crab", scientific: "Metacarcinus magister", description: "A prized seafood species known for its sweet, tender meat." },
-        { name: "Helmet Crab", scientific: "Telmessus cheiragonus", description: "A small, spiny crab often found in eelgrass beds." },
-        { name: "Kelp Crab", scientific: "Pugettia producta", description: "A crab with long legs that blends in with seaweed and kelp." },
-        { name: "Porcelain Crab", scientific: "Petrolisthes", description: "A delicate crab that filters plankton from the water." },
-        { name: "Shore Crab", scientific: "Hemigrapsus nudus", description: "A small crab with purple or green coloration that scurries along tide pools." },
-        { name: "Red Rock Crab", scientific: "Cancer productus", description: "A robust, red-colored crab often found on rocky shorelines." },
-        { name: "Sand Fleas/Beach Hoppers", scientific: "Megalorchestia", description: "Small crustaceans that jump and burrow in sandy beaches." },
-      ],
-    },
-    {
-      category: "Echinoderms",
-      species: [
-        { name: "Ochre Sea Star", scientific: "Pisaster ochraceus", description: "A keystone predator known for its striking orange, purple, or brown color." },
-        { name: "Mottled Star", scientific: "Evasterias troschelii", description: "A large sea star with a mottled color pattern." },
-        { name: "Leather Star", scientific: "Dermasterias imbricata", description: "A soft-bodied sea star with a leathery texture." },
-        { name: "Sunflower Sea Star", scientific: "Pycnopodia helianthoides", description: "A fast-moving sea star with up to 24 arms." },
-        { name: "Green Sea Urchin", scientific: "Strongylocentrotus droebachiensis", description: "A spiky, green-colored sea urchin that grazes on algae." },
-        { name: "Red Sea Urchin", scientific: "Mesocentrotus franciscanus", description: "A large, long-spined urchin harvested for its roe." },
-        { name: "California Sea Cucumber", scientific: "Apostichopus californicus", description: "A soft-bodied echinoderm that filters detritus from the ocean floor." },
-      ],
-    },
-    {
-      category: "Fish",
-      species: [
-        { name: "Tidepool Sculpin", scientific: "Oligocottus maculosus", description: "A small, well-camouflaged fish that darts between rocks in tide pools." },
-        { name: "Fluffy Sculpin", scientific: "Oligocottus snyderi", description: "A tiny, fuzzy-looking fish that blends into its environment." },
-        { name: "High Cockscomb", scientific: "Anoplarchus purpurescens", description: "A long, eel-like fish with a prominent dorsal ridge." },
-        { name: "Gunnel", scientific: "Pholis", description: "A slippery, elongated fish that hides under seaweed and rocks." },
-      ],
-    },
-    {
-      category: "Algae & Marine Plants",
-      species: [
-        { name: "Rockweed", scientific: "Fucus distichus", description: "A brown seaweed that grows in dense mats along the shore." },
-        { name: "Bull Kelp", scientific: "Nereocystis luetkeana", description: "A fast-growing kelp that forms underwater forests." },
-        { name: "Sea Lettuce", scientific: "Ulva lactuca", description: "A bright green algae often found in tide pools." },
-        { name: "Turkish Washcloth", scientific: "Mastocarpus papillatus", description: "A red algae with a rough, sandpapery texture." },
-        { name: "Sugar Kelp", scientific: "Saccharina latissima", description: "A large, edible kelp known for its sweet flavor." },
-      ],
-    },
-  ];
-  
 
 const TidepoolingApp = () => {
   const [checkedSpecies, setCheckedSpecies] = useState({});
   const [expandedCategories, setExpandedCategories] = useState({});
   const [speciesImages, setSpeciesImages] = useState({});
+  const [tideLevel, setTideLevel] = useState(null);
 
   useEffect(() => {
     const savedChecked = JSON.parse(localStorage.getItem("checkedSpecies")) || {};
@@ -94,6 +23,7 @@ const TidepoolingApp = () => {
         fetchWikipediaImage(species.scientific);
       });
     });
+    fetchTideLevel(); // Fetch the tide level when the component mounts
   }, []);
 
   const fetchWikipediaImage = async (scientificName) => {
@@ -114,6 +44,74 @@ const TidepoolingApp = () => {
     }
   };
 
+  const fetchTideLevel = async () => {
+    try {
+      const currentDate = new Date().toISOString().split("T")[0].replace(/-/g, "");
+      const tomorrowDate = new Date();
+      tomorrowDate.setDate(tomorrowDate.getDate() + 1);
+      const formattedTomorrow = tomorrowDate.toISOString().split("T")[0].replace(/-/g, "");
+  
+      // NOAA API for real-time tide levels
+      const currentTideUrl = `https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=9452210&datum=MLLW&product=water_level&units=metric&time_zone=gmt&format=json&begin_date=${currentDate}&end_date=${currentDate}&hours=2`;
+  
+      // NOAA API for predicted tide data (to find next low tide)
+      const predictedTideUrl = `https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=9452210&datum=MLLW&product=predictions&units=metric&time_zone=gmt&format=json&begin_date=${currentDate}&end_date=${formattedTomorrow}&interval=hilo`;
+  
+      // Fetch real-time tide level
+      const [currentTideResponse, predictedTideResponse] = await Promise.all([
+        fetch(currentTideUrl),
+        fetch(predictedTideUrl)
+      ]);
+  
+      const currentTideData = await currentTideResponse.json();
+      const predictedTideData = await predictedTideResponse.json();
+  
+      let tideLevelText = "Tide data unavailable";
+      let nextLowTideText = "Next low tide data unavailable";
+  
+      // Process current tide level
+      if (currentTideData.data && currentTideData.data.length > 1) {
+        const latestTide = parseFloat(currentTideData.data[currentTideData.data.length - 1].v);
+        const previousTide = parseFloat(currentTideData.data[currentTideData.data.length - 2].v);
+  
+        const tideTrend = latestTide > previousTide ? "Rising Tide" : "Falling Tide";
+  
+        let tideDescription = "";
+        if (latestTide < 1.5) {
+          tideDescription = "Low Tide";
+        } else if (latestTide >= 1.5 && latestTide < 3.5) {
+          tideDescription = "Moderate Tide";
+        } else {
+          tideDescription = "High Tide";
+        }
+  
+        tideLevelText = `${tideDescription} (${tideTrend})`;
+      }
+  
+      // Process next low tide time
+      if (predictedTideData.predictions) {
+        const lowTides = predictedTideData.predictions.filter(prediction => prediction.type === "L");
+  
+        if (lowTides.length > 0) {
+          const nextLowTide = new Date(lowTides[0].t + "Z"); // Convert to local time
+          const options = { hour: 'numeric', minute: 'numeric', hour12: true, timeZone: 'America/Juneau' };
+          const formattedLowTideTime = nextLowTide.toLocaleString("en-US", options);
+  
+          nextLowTideText = `Next Low Tide at ${formattedLowTideTime}`;
+        }
+      }
+  
+      setTideLevel(`${tideLevelText} | ${nextLowTideText}`);
+  
+    } catch (error) {
+      console.error("Error fetching tide level:", error);
+      setTideLevel("Tide data unavailable");
+    }
+  };
+  
+  
+  
+
   const toggleCheck = (scientificName) => {
     setCheckedSpecies((prev) => ({
       ...prev,
@@ -132,13 +130,12 @@ const TidepoolingApp = () => {
     const selectedScientificNames = Object.keys(checkedSpecies).filter(
       (key) => checkedSpecies[key]
     );
-  
+
     if (selectedScientificNames.length === 0) {
       alert("You haven't checked any species yet!");
       return;
     }
-  
-    // Map scientific names back to common names
+
     const selectedCommonNames = selectedScientificNames.map((scientificName) => {
       let commonName = "";
       speciesList.forEach((group) => {
@@ -151,19 +148,21 @@ const TidepoolingApp = () => {
       });
       return commonName;
     });
-  
+
     const speciesText = selectedCommonNames.join(", ");
     navigator.clipboard.writeText(`I saw these tidepool species: ${speciesText}`).then(() => {
       alert("Copied to clipboard! Paste it into a message to share.");
     });
   };
-  
 
-
-return (
+  return (
     <div className="container">
       <h1 className="title">ANNA GOES TIDEPOOLING</h1>
 
+      <div className="tide-container">
+  <p className="tide-title">Current Tide Level in Juneau</p>
+  <p className="tide-data">{tideLevel || "Loading..."}</p>
+</div>
       {speciesList.map((group) => (
         <div key={group.category} className="category-container">
           <div className="category-header" onClick={() => toggleCategory(group.category)}>
@@ -200,13 +199,12 @@ return (
       ))}
 
       {/* Copy to Clipboard Button */}
-      {/* Copy to Clipboard Button */}
-<button className="copy-button" onClick={copyCheckedSpecies}>
-  Copy My Species List to Share 📋
-</button>
+      <button className="copy-button" onClick={copyCheckedSpecies}>
+        Copy My Species List to Share 📋
+      </button>
 
-{/* Footer */}
-<footer className="footer">made by sean</footer>
+      {/* Footer */}
+      <footer className="footer">made by sean</footer>
     </div>
   );
 };
