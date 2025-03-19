@@ -133,7 +133,7 @@ const TidepoolingApp = () => {
 
   return (
     <div className="container">
-      <h1 className="title">ANNA GOES TIDEPOOLING</h1>
+      <h1 className="title">TIDEPOOLING</h1>
 
       <div className="tide-container">
   <p className="tide-title">Tides in Juneau</p>

@@ -4,7 +4,7 @@ import "./pages/TidepoolingApp.css";
 
 function App() {
   useEffect(() => {
-    document.title = "Anna Tidepools"; // Set the tab title
+    document.title = "Tidepools"; // Set the tab title
   }, []);
 
   return (
