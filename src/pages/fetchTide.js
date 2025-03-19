@@ -35,7 +35,7 @@ export const fetchTideLevel = async (setTideLevel) => {
       const latestTideFeet = parseFloat(currentTideData.data[currentTideData.data.length - 1].v).toFixed(2);
       const previousTideFeet = parseFloat(currentTideData.data[currentTideData.data.length - 2].v).toFixed(2);
 
-      const tideTrend = latestTideFeet > previousTideFeet ? "Rising Tide" : "Falling Tide";
+      const tideTrend = latestTideFeet > previousTideFeet ? "Rising" : "Falling";
 
       let tideDescription;
       if (latestTideFeet < 1.5) {
@@ -46,7 +46,7 @@ export const fetchTideLevel = async (setTideLevel) => {
         tideDescription = "High Tide";
       }
 
-      tideLevelText = `Current: ${tideDescription} (${tideTrend}) - ${latestTideFeet} ft`;
+      tideLevelText = `Current: ${tideDescription} (${tideTrend}), ${latestTideFeet} ft`;
     }
 
     // 🔹 Process Next Two Low Tide Predictions

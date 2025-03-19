@@ -1,8 +1,5 @@
 .tide-container {
   text-align: center;
-  display: block; /* Change from inline-block */
-  margin: 0 auto;
-  width: fit-content; /* Ensures it doesn’t stretch */
 }
 
 
@@ -11,7 +8,6 @@
   font-size: 1.1rem;
   font-weight: bold;
   color: #f06ffa;
-  margin-top: 1px;
   line-height: .05;
 }
 
@@ -21,4 +17,18 @@
   color: #000000; /* Dark gray */
   line-height: 9px;
   font-style: bold;
+}
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+  .tide-title {
+    font-size: 1rem; /* Smaller size for compact screens */
+    margin-top: -10px;
+  }
+
+  .tide-data {
+    font-size: 0.9rem;
+    line-height: .4;
+    margin-bottom: 2px;
+  }
 }
