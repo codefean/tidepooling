@@ -4,13 +4,13 @@ import { fetchTideLevel } from "./fetchTide";
 import TideSearch from "./tideSearch";
 import "./TidepoolingApp.css";
 
-//cd /Users/seanfagan/Desktop/tidepooling-app2
+//cd /Users/seanfagan/Desktop/tidepooling-app3
 
 const TidepoolingApp = () => {
   const [checkedSpecies, setCheckedSpecies] = useState({});
   const [expandedCategories, setExpandedCategories] = useState({});
   const [speciesImages, setSpeciesImages] = useState({});
-  const [tideLevel, setTideLevel] = useState(null);
+  const [tideLevel, setTideLevel] = useState("");
 
   useEffect(() => {
     const savedChecked = JSON.parse(localStorage.getItem("checkedSpecies")) || {};
@@ -18,17 +18,13 @@ const TidepoolingApp = () => {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("checkedSpecies", JSON.stringify(checkedSpecies));
+    if (Object.keys(checkedSpecies).length > 0) {
+      localStorage.setItem("checkedSpecies", JSON.stringify(checkedSpecies));
+    }
   }, [checkedSpecies]);
 
   useEffect(() => {
-    speciesList.forEach((group) => {
-      group.species.forEach((species) => {
-        fetchINaturalistImage(species.scientific);
-      });
-    });
-
-    fetchTideLevel(setTideLevel); // Call the function to fetch tide level
+    fetchTideLevel(setTideLevel);
   }, []);
 
   const fetchINaturalistImage = async (scientificName) => {
@@ -41,25 +37,23 @@ const TidepoolingApp = () => {
       if (data.results.length > 0 && data.results[0].default_photo) {
         setSpeciesImages((prev) => ({
           ...prev,
-          [scientificName]: data.results[0].default_photo.medium_url, // iNaturalist image URL
+          [scientificName]: data.results[0].default_photo.medium_url,
         }));
       } else {
         setSpeciesImages((prev) => ({
           ...prev,
-          [scientificName]: "/images/placeholder.jpg", // Fallback image
+          [scientificName]: "/images/placeholder.jpg",
         }));
       }
     } catch (error) {
       console.error("Error fetching iNaturalist image:", error);
       setSpeciesImages((prev) => ({
         ...prev,
-        [scientificName]: "/images/placeholder.jpg", // Fallback image if fetch fails
+        [scientificName]: "/images/placeholder.jpg",
       }));
     }
   };
   
-  
-
   const toggleCheck = (scientificName) => {
     setCheckedSpecies((prev) => ({
       ...prev,
@@ -70,9 +64,7 @@ const TidepoolingApp = () => {
   const toggleCategory = (category) => {
     setExpandedCategories((prev) => {
       const isExpanded = !prev[category];
-  
       if (isExpanded) {
-        // Fetch images only when expanding the category
         const speciesToFetch = speciesList.find(group => group.category === category).species;
         speciesToFetch.forEach(species => {
           if (!speciesImages[species.scientific]) {
@@ -80,11 +72,9 @@ const TidepoolingApp = () => {
           }
         });
       }
-  
       return { ...prev, [category]: isExpanded };
     });
   };
-  
 
   const copyCheckedSpecies = () => {
     const selectedScientificNames = Object.keys(checkedSpecies).filter(
@@ -115,38 +105,36 @@ const TidepoolingApp = () => {
     });
   };
 
-    // Function to scroll to species when selected in TideSearch
-    const handleSpeciesClick = (speciesId, category) => {
-      // Ensure the category is expanded before scrolling
-      setExpandedCategories((prev) => ({
-        ...prev,
-        [category]: true,
-      }));
-  
-      setTimeout(() => {
-        const speciesElement = document.getElementById(speciesId);
-        if (speciesElement) {
-          speciesElement.scrollIntoView({ behavior: "smooth", block: "center" });
-        }
-      }, 100); // Delay allows React state update to take effect
-    };
+  const handleSpeciesClick = (speciesId, category) => {
+    setExpandedCategories((prev) => ({
+      ...prev,
+      [category]: true,
+    }));
+
+    setTimeout(() => {
+      const speciesElement = document.getElementById(speciesId);
+      if (speciesElement) {
+        speciesElement.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    }, 100);
+  };
 
   return (
     <div className="container">
-      <h1 className="title">TIDEPOOLING</h1>
+      <h1 className="title">ANNA GOES TIDEPOOLING</h1>
 
       <div className="tide-container">
-  <p className="tide-title">Tides in Juneau</p>
-  {tideLevel ? (
-    tideLevel.split("\n").map((line, index) => (
-      <p key={index} className="tide-data">{line}</p>
-    ))
-  ) : (
-    <p className="tide-data">Loading...</p>
-  )}
-</div>
+        <p className="tide-title">Tides in Juneau</p>
+        {tideLevel ? (
+          tideLevel.split("\n").map((line, index) => (
+            <p key={index} className="tide-data">{line}</p>
+          ))
+        ) : (
+          <p className="tide-data">Loading...</p>
+        )}
+      </div>
 
-<TideSearch onSpeciesSelect={handleSpeciesClick} />
+      <TideSearch onSpeciesSelect={handleSpeciesClick} />
       {speciesList.map((group) => (
         <div key={group.category} className="category-container">
           <div className="category-header" onClick={() => toggleCategory(group.category)}>
@@ -159,8 +147,8 @@ const TidepoolingApp = () => {
                 <div key={species.scientific} className="species-card">
                   <div className="species-info">
                     <img
-                      src={speciesImages[species.scientific] || "placeholder.jpg"}
-                      alt={species.name}
+                      src={speciesImages[species.scientific] || "/images/placeholder.jpg"}
+                      alt={`${species.name} - ${species.scientific}`}
                       className="species-image"
                     />
                     <div>
@@ -182,12 +170,10 @@ const TidepoolingApp = () => {
         </div>
       ))}
 
-      {/* Copy to Clipboard Button */}
       <button className="copy-button" onClick={copyCheckedSpecies}>
         Copy My Species List to Share 📋
       </button>
 
-      {/* Footer */}
       <footer className="footer">made by sean</footer>
     </div>
   );
