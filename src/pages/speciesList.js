@@ -84,25 +84,27 @@ const speciesList = [
   
   
   {
-    category: "Fish",
-    species: [
-      { id: "tidepool-sculpin", name: "Tidepool Sculpin", scientific: "Oligocottus maculosus", description: "A small, well-camouflaged fish that darts between rocks in tide pools." },
-      { id: "fluffy-sculpin", name: "Fluffy Sculpin", scientific: "Oligocottus snyderi", description: "A tiny, fuzzy-looking fish that blends into its environment." },
-      { id: "coastrange-sculpin", name: "Coastrange Sculpin", scientific: "Cottus aleuticus", description: "A small, cryptic fish that hides among rocks and seaweed." },
-      { id: "scalyhead-sculpin", name: "Scalyhead Sculpin", scientific: "Artedius harringtoni", description: "A colorful, adaptable fish that changes patterns to match its surroundings." },
-      { id: "red-irish-lord", name: "Red Irish Lord", scientific: "Hemilepidotus hemilepidotus", description: "A striking, red-patterned sculpin often found in deeper tide pools." },
-      { id: "great-sculpin", name: "Great Sculpin", scientific: "Myoxocephalus polyacanthocephalus", description: "A larger, robust sculpin sometimes seen in subtidal pools." },
-      { id: "high-cockscomb", name: "High Cockscomb", scientific: "Anoplarchus purpurescens", description: "A long, eel-like fish with a prominent dorsal ridge." },
-      { id: "rockweed-gunnel", name: "Rockweed Gunnel", scientific: "Apodichthys fucorum", description: "A slippery, greenish-brown fish that blends into seaweed." },
-      { id: "crescent-gunnel", name: "Crescent Gunnel", scientific: "Pholis laeta", description: "A banded fish often found hiding under algae-covered rocks." },
-      { id: "saddleback-gunnel", name: "Saddleback Gunnel", scientific: "Pholis ornata", description: "A small, brown and white gunnel with distinctive saddle-like markings." },
-      { id: "penpoint-gunnel", name: "Penpoint Gunnel", scientific: "Apodichthys flavidus", description: "A long, thin fish with a pointed snout, often found under rocks." },
-      { id: "mosshead-warbonnet", name: "Mosshead Warbonnet", scientific: "Chirolophis nugator", description: "A bizarre-looking fish with frilly appendages on its head." },
-      { id: "pacific-staghorn-sculpin", name: "Pacific Staghorn Sculpin", scientific: "Leptocottus armatus", description: "A spiny-headed sculpin with large pectoral fins, common in tide pools." },
-      { id: "snake-prickleback", name: "Snake Prickleback", scientific: "Lumpenus sagitta", description: "A long, snake-like fish that hides in crevices." },
-      { id: "longfin-sculpin", name: "Longfin Sculpin", scientific: "Jordania zonope", description: "A well-camouflaged fish with long pectoral fins, often found in rocky pools." },
-    ],
+    "category": "Fish",
+    "species": [
+      { "id": "tidepool-sculpin", "name": "Tidepool Sculpin", "scientific": "Oligocottus maculosus", "description": "A small, well-camouflaged fish that darts between rocks in tide pools." },
+      { "id": "fluffy-sculpin", "name": "Fluffy Sculpin", "scientific": "Oligocottus snyderi", "description": "A tiny, fuzzy-looking fish that blends into its environment." },
+      { "id": "coastrange-sculpin", "name": "Coastrange Sculpin", "scientific": "Cottus aleuticus", "description": "A small, cryptic fish that hides among rocks and seaweed." },
+      { "id": "scalyhead-sculpin", "name": "Scalyhead Sculpin", "scientific": "Artedius harringtoni", "description": "A colorful, adaptable fish that changes patterns to match its surroundings." },
+      { "id": "red-irish-lord", "name": "Red Irish Lord", "scientific": "Hemilepidotus hemilepidotus", "description": "A striking, red-patterned sculpin often found in deeper tide pools." },
+      { "id": "great-sculpin", "name": "Great Sculpin", "scientific": "Myoxocephalus polyacanthocephalus", "description": "A larger, robust sculpin sometimes seen in subtidal pools." },
+      { "id": "high-cockscomb", "name": "High Cockscomb", "scientific": "Anoplarchus purpurescens", "description": "A long, eel-like fish with a prominent dorsal ridge." },
+      { "id": "rockweed-gunnel", "name": "Rockweed Gunnel", "scientific": "Apodichthys fucorum", "description": "A slippery, greenish-brown fish that blends into seaweed." },
+      { "id": "crescent-gunnel", "name": "Crescent Gunnel", "scientific": "Pholis laeta", "description": "A banded fish often found hiding under algae-covered rocks." },
+      { "id": "saddleback-gunnel", "name": "Saddleback Gunnel", "scientific": "Pholis ornata", "description": "A small, brown and white gunnel with distinctive saddle-like markings." },
+      { "id": "penpoint-gunnel", "name": "Penpoint Gunnel", "scientific": "Apodichthys flavidus", "description": "A long, thin fish with a pointed snout, often found under rocks." },
+      { "id": "mosshead-warbonnet", "name": "Mosshead Warbonnet", "scientific": "Chirolophis nugator", "description": "A bizarre-looking fish with frilly appendages on its head." },
+      { "id": "pacific-staghorn-sculpin", "name": "Pacific Staghorn Sculpin", "scientific": "Leptocottus armatus", "description": "A spiny-headed sculpin with large pectoral fins, common in tide pools." },
+      { "id": "snake-prickleback", "name": "Snake Prickleback", "scientific": "Lumpenus sagitta", "description": "A long, snake-like fish that hides in crevices." },
+      { "id": "longfin-sculpin", "name": "Longfin Sculpin", "scientific": "Jordania zonope", "description": "A well-camouflaged fish with long pectoral fins, often found in rocky pools." },
+      { "id": "leopard-droidfish", "name": "Leopard Droidfish", "scientific": "Cyberichthys maculatus", "description": "A rare, highly adaptive fish with a sleek, mechanical-like pattern resembling leopard spots." }
+    ]
   },
+  
   {
     category: "Algae / Plants",
     species: [
