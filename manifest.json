@@ -1,6 +1,8 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Tidepool in Juneau",
+  "name": "Tidepooling in Juneau",
+  "description": "A web app for tidepooling in Juneau, Alaska",
+  "lang": "en-US",
   "icons": [
     {
       "src": "favicon.ico",
