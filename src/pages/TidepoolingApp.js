@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
-import speciesList from "./speciesList"; // Importing the species list
+import speciesList from "./speciesList";
+import { fetchTideLevel } from "./fetchTide"; // Import the new function
 import "./TidepoolingApp.css";
+
+//cd /Users/seanfagan/Desktop/tidepooling-app2
 
 const TidepoolingApp = () => {
   const [checkedSpecies, setCheckedSpecies] = useState({});
@@ -23,7 +26,8 @@ const TidepoolingApp = () => {
         fetchWikipediaImage(species.scientific);
       });
     });
-    fetchTideLevel(); // Fetch the tide level when the component mounts
+
+    fetchTideLevel(setTideLevel); // Call the function to fetch tide level
   }, []);
 
   const fetchWikipediaImage = async (scientificName) => {
@@ -43,72 +47,6 @@ const TidepoolingApp = () => {
       console.error("Error fetching Wikipedia image:", error);
     }
   };
-
-  const fetchTideLevel = async () => {
-    try {
-      const currentDate = new Date().toISOString().split("T")[0].replace(/-/g, "");
-      const tomorrowDate = new Date();
-      tomorrowDate.setDate(tomorrowDate.getDate() + 1);
-      const formattedTomorrow = tomorrowDate.toISOString().split("T")[0].replace(/-/g, "");
-  
-      // NOAA API for real-time tide levels
-      const currentTideUrl = `https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=9452210&datum=MLLW&product=water_level&units=metric&time_zone=gmt&format=json&begin_date=${currentDate}&end_date=${currentDate}&hours=2`;
-  
-      // NOAA API for predicted tide data (to find next low tide)
-      const predictedTideUrl = `https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=9452210&datum=MLLW&product=predictions&units=metric&time_zone=gmt&format=json&begin_date=${currentDate}&end_date=${formattedTomorrow}&interval=hilo`;
-  
-      // Fetch real-time tide level
-      const [currentTideResponse, predictedTideResponse] = await Promise.all([
-        fetch(currentTideUrl),
-        fetch(predictedTideUrl)
-      ]);
-  
-      const currentTideData = await currentTideResponse.json();
-      const predictedTideData = await predictedTideResponse.json();
-  
-      let tideLevelText = "Tide data unavailable";
-      let nextLowTideText = "Next low tide data unavailable";
-  
-      // Process current tide level
-      if (currentTideData.data && currentTideData.data.length > 1) {
-        const latestTide = parseFloat(currentTideData.data[currentTideData.data.length - 1].v);
-        const previousTide = parseFloat(currentTideData.data[currentTideData.data.length - 2].v);
-  
-        const tideTrend = latestTide > previousTide ? "Rising Tide" : "Falling Tide";
-  
-        let tideDescription = "";
-        if (latestTide < 1.5) {
-          tideDescription = "Low Tide";
-        } else if (latestTide >= 1.5 && latestTide < 3.5) {
-          tideDescription = "Moderate Tide";
-        } else {
-          tideDescription = "High Tide";
-        }
-  
-        tideLevelText = `${tideDescription} (${tideTrend})`;
-      }
-  
-      // Process next low tide time
-      if (predictedTideData.predictions) {
-        const lowTides = predictedTideData.predictions.filter(prediction => prediction.type === "L");
-  
-        if (lowTides.length > 0) {
-          const nextLowTide = new Date(lowTides[0].t + "Z"); // Convert to local time
-          const options = { hour: 'numeric', minute: 'numeric', hour12: true, timeZone: 'America/Juneau' };
-          const formattedLowTideTime = nextLowTide.toLocaleString("en-US", options);
-  
-          nextLowTideText = `Next Low Tide at ${formattedLowTideTime}`;
-        }
-      }
-  
-      setTideLevel(`${tideLevelText} | ${nextLowTideText}`);
-  
-    } catch (error) {
-      console.error("Error fetching tide level:", error);
-      setTideLevel("Tide data unavailable");
-    }
-  };
-  
   
   
 
@@ -160,8 +98,14 @@ const TidepoolingApp = () => {
       <h1 className="title">ANNA GOES TIDEPOOLING</h1>
 
       <div className="tide-container">
-  <p className="tide-title">Current Tide Level in Juneau</p>
-  <p className="tide-data">{tideLevel || "Loading..."}</p>
+  <p className="tide-title">Tides in Juneau</p>
+  {tideLevel ? (
+    tideLevel.split("\n").map((line, index) => (
+      <p key={index} className="tide-data">{line}</p>
+    ))
+  ) : (
+    <p className="tide-data">Loading...</p>
+  )}
 </div>
       {speciesList.map((group) => (
         <div key={group.category} className="category-container">
