@@ -23,28 +23,37 @@ const TidepoolingApp = () => {
   useEffect(() => {
     speciesList.forEach((group) => {
       group.species.forEach((species) => {
-        fetchWikipediaImage(species.scientific);
+        fetchINaturalistImage(species.scientific);
       });
     });
 
     fetchTideLevel(setTideLevel); // Call the function to fetch tide level
   }, []);
 
-  const fetchWikipediaImage = async (scientificName) => {
+  const fetchINaturalistImage = async (scientificName) => {
     try {
-      const formattedName = encodeURIComponent(scientificName.replace(/ /g, "_"));
       const response = await fetch(
-        `https://en.wikipedia.org/api/rest_v1/page/summary/${formattedName}`
+        `https://api.inaturalist.org/v1/taxa?q=${encodeURIComponent(scientificName)}`
       );
       const data = await response.json();
-      if (data.thumbnail) {
+  
+      if (data.results.length > 0 && data.results[0].default_photo) {
         setSpeciesImages((prev) => ({
           ...prev,
-          [scientificName]: data.thumbnail.source,
+          [scientificName]: data.results[0].default_photo.medium_url, // iNaturalist image URL
+        }));
+      } else {
+        setSpeciesImages((prev) => ({
+          ...prev,
+          [scientificName]: "/images/placeholder.jpg", // Fallback image
         }));
       }
     } catch (error) {
-      console.error("Error fetching Wikipedia image:", error);
+      console.error("Error fetching iNaturalist image:", error);
+      setSpeciesImages((prev) => ({
+        ...prev,
+        [scientificName]: "/images/placeholder.jpg", // Fallback image if fetch fails
+      }));
     }
   };
   
