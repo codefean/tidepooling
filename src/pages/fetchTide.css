@@ -1,0 +1,24 @@
+.tide-container {
+  text-align: center;
+  display: block; /* Change from inline-block */
+  margin: 0 auto;
+  width: fit-content; /* Ensures it doesn’t stretch */
+}
+
+
+/* Bold, large font for the tide title */
+.tide-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #f06ffa;
+  margin-top: 1px;
+  line-height: .05;
+}
+
+/* Normal text for the tide data */
+.tide-data {
+  font-size: 1rem;
+  color: #000000; /* Dark gray */
+  line-height: 9px;
+  font-style: bold;
+}

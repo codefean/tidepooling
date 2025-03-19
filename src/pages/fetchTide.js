@@ -1,3 +1,5 @@
+import "./fetchTide.css";
+
 export const fetchTideLevel = async (setTideLevel) => {
   try {
     const stationID = "9452210"; // Juneau, AK tide station

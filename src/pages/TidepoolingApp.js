@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import speciesList from "./speciesList";
-import { fetchTideLevel } from "./fetchTide"; // Import the new function
+import { fetchTideLevel } from "./fetchTide";
+import TideSearch from "./tideSearch";
 import "./TidepoolingApp.css";
 
 //cd /Users/seanfagan/Desktop/tidepooling-app2
@@ -102,6 +103,22 @@ const TidepoolingApp = () => {
     });
   };
 
+    // Function to scroll to species when selected in TideSearch
+    const handleSpeciesClick = (speciesId, category) => {
+      // Ensure the category is expanded before scrolling
+      setExpandedCategories((prev) => ({
+        ...prev,
+        [category]: true,
+      }));
+  
+      setTimeout(() => {
+        const speciesElement = document.getElementById(speciesId);
+        if (speciesElement) {
+          speciesElement.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      }, 100); // Delay allows React state update to take effect
+    };
+
   return (
     <div className="container">
       <h1 className="title">ANNA GOES TIDEPOOLING</h1>
@@ -116,6 +133,8 @@ const TidepoolingApp = () => {
     <p className="tide-data">Loading...</p>
   )}
 </div>
+
+<TideSearch onSpeciesSelect={handleSpeciesClick} />
       {speciesList.map((group) => (
         <div key={group.category} className="category-container">
           <div className="category-header" onClick={() => toggleCategory(group.category)}>
