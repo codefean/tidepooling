@@ -68,7 +68,7 @@ const speciesList = [
     ],
   },
   {
-    category: "Cnidarians (Anemones)",
+    category: "Cnidarians",
     species: [
       { id: "giant-green-anemone", name: "Giant Green Anemone", scientific: "Anthopleura xanthogrammica", description: "A large, bright green anemone that thrives in rocky tide pools." },
       { id: "aggregating-anemone", name: "Aggregating Anemone", scientific: "Anthopleura elegantissima", description: "A small anemone that forms dense clusters along the shore." },
@@ -104,7 +104,7 @@ const speciesList = [
     ],
   },
   {
-    category: "Algae & Marine Plants",
+    category: "Algae / Plants",
     species: [
       { id: "rockweed", name: "Rockweed", scientific: "Fucus distichus", description: "A brown seaweed that grows in dense mats along the shore." },
       { id: "bladderwrack", name: "Bladderwrack", scientific: "Fucus vesiculosus", description: "A brown algae with air bladders that help it float." },
@@ -131,7 +131,7 @@ const speciesList = [
   },
   
   {
-    category: "Marine Mammals",
+    category: "Mammals",
     species: [
       { id: "sea-otter", name: "Sea Otter", scientific: "Enhydra lutris", description: "A playful marine mammal known for floating on its back and using tools to break open shellfish." },
       { id: "harbor-seal", name: "Harbor Seal", scientific: "Phoca vitulina", description: "A spotted seal that often hauls out on rocky shores and ice floes." },
