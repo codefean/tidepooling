@@ -68,11 +68,23 @@ const TidepoolingApp = () => {
   };
 
   const toggleCategory = (category) => {
-    setExpandedCategories((prev) => ({
-      ...prev,
-      [category]: !prev[category],
-    }));
+    setExpandedCategories((prev) => {
+      const isExpanded = !prev[category];
+  
+      if (isExpanded) {
+        // Fetch images only when expanding the category
+        const speciesToFetch = speciesList.find(group => group.category === category).species;
+        speciesToFetch.forEach(species => {
+          if (!speciesImages[species.scientific]) {
+            fetchINaturalistImage(species.scientific);
+          }
+        });
+      }
+  
+      return { ...prev, [category]: isExpanded };
+    });
   };
+  
 
   const copyCheckedSpecies = () => {
     const selectedScientificNames = Object.keys(checkedSpecies).filter(
