@@ -70,15 +70,17 @@ export const fetchTideLevel = async (setTideLevel) => {
     // 🔹 Process Upcoming Low Tide Predictions
     if (predictedTideData.predictions) {
       const lowTides = predictedTideData.predictions
-        .filter((prediction) => prediction.v !== undefined)
-        .map((tide) => ({
-          time: new Date(tide.t + " UTC"), // Convert to UTC timestamp
-          value: parseFloat(tide.v).toFixed(2),
-        }))
-        .sort((a, b) => a.time - b.time); // Sort by time
-
-      const now = new Date();
-      const validTides = lowTides.filter((tide) => tide.time > now);
+      .filter((tide) => tide.v !== undefined)
+      .map((tide) => ({
+        time: new Date(tide.t + " UTC"), // Convert to UTC timestamp
+        value: parseFloat(tide.v).toFixed(2),
+        isLowTide: parseFloat(tide.v) < 3.5 // Example threshold for "low tide"
+      }))
+      .filter(tide => tide.isLowTide) // ✅ Ensure we're selecting only low tides
+      .sort((a, b) => a.time - b.time); // Sort by time
+    
+    const now = new Date();
+    const validTides = lowTides.filter((tide) => tide.time > now);
 
       if (validTides.length > 0) {
         // Process the next valid low tide
