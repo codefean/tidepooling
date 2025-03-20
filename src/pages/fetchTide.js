@@ -72,7 +72,7 @@ export const fetchTideLevel = async (setTideLevel) => {
       const lowTides = predictedTideData.predictions
       .filter((tide) => tide.v !== undefined)
       .map((tide) => ({
-        time: new Date(tide.t + " UTC"), // Convert to UTC timestamp
+        time: new Date(tide.t.replace(" ", "T") + "Z"), // Ensure Safari compatibility
         value: parseFloat(tide.v).toFixed(2),
         isLowTide: parseFloat(tide.v) < 3.5 // Example threshold for "low tide"
       }))
