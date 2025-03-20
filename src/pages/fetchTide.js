@@ -1,16 +1,34 @@
-import "./fetchTide.css";
+import React, { useState, useEffect } from "react";
+import "./fetchTide.css"; // Ensure this is correctly imported
+
+export const TideDisplay = () => {
+  const [tideLevel, setTideLevel] = useState("Loading...");
+
+  useEffect(() => {
+    fetchTideLevel(setTideLevel);
+  }, []);
+
+  return (
+    <div className="tide-container">
+      <h3 className="tide-title">🌊 Tide Levels</h3>
+      <p className="tide-data">{tideLevel.split("\n")[0]}</p>
+      <p className="tide-data">{tideLevel.split("\n")[1]}</p>
+      <p className="tide-data">{tideLevel.split("\n")[2]}</p>
+    </div>
+  );
+};
 
 export const fetchTideLevel = async (setTideLevel) => {
   try {
     const stationID = "9452210"; // Juneau, AK tide station
-    const today = new Date().toISOString().split("T")[0].replace(/-/g, "");
+    const today = new Date().toISOString().split("T")[0]; // YYYY-MM-DD format
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
-    const formattedTomorrow = tomorrow.toISOString().split("T")[0].replace(/-/g, "");
+    const formattedTomorrow = tomorrow.toISOString().split("T")[0]; // YYYY-MM-DD format
 
     // NOAA API URLs
-    const predictedTideUrl = `https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=${stationID}&datum=MLLW&product=predictions&units=english&time_zone=lst_ldt&format=json&begin_date=${today}&end_date=${formattedTomorrow}&interval=hilo`;
-    const currentTideUrl = `https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=${stationID}&datum=MLLW&product=water_level&units=english&time_zone=lst_ldt&format=json&begin_date=${today}&end_date=${today}&hours=2`;
+    const predictedTideUrl = `https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=${stationID}&datum=MLLW&product=predictions&units=english&time_zone=gmt&format=json&begin_date=${today}&end_date=${formattedTomorrow}&interval=hilo`;
+    const currentTideUrl = `https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?station=${stationID}&datum=MLLW&product=water_level&units=english&time_zone=gmt&format=json&begin_date=${today}&end_date=${today}&hours=2`;
 
     // Fetch predicted and real-time tide data in parallel
     const [predictedTideResponse, currentTideResponse] = await Promise.all([
@@ -51,24 +69,29 @@ export const fetchTideLevel = async (setTideLevel) => {
 
     // 🔹 Process Upcoming Low Tide Predictions
     if (predictedTideData.predictions) {
-      const lowTides = predictedTideData.predictions.filter((prediction) => prediction.type === "L");
+      const lowTides = predictedTideData.predictions
+        .filter((prediction) => prediction.v !== undefined)
+        .map((tide) => ({
+          time: new Date(tide.t + " UTC"), // Convert to UTC timestamp
+          value: parseFloat(tide.v).toFixed(2),
+        }))
+        .sort((a, b) => a.time - b.time); // Sort by time
 
       const now = new Date();
-      const validTides = lowTides.filter((tide) => new Date(tide.t) > now); // Only show future tides
+      const validTides = lowTides.filter((tide) => tide.time > now);
 
       if (validTides.length > 0) {
         // Process the next valid low tide
-        const nextLowTide = new Date(validTides[0].t);
-        const nextLowTideFeet = parseFloat(validTides[0].v).toFixed(2);
-        nextLowTideText = `Next Low Tide: ${nextLowTide.toLocaleTimeString("en-US", {
+        const nextLowTide = validTides[0];
+        nextLowTideText = `Next Low Tide: ${nextLowTide.time.toLocaleTimeString("en-US", {
           hour: "numeric",
           minute: "numeric",
           hour12: true,
           timeZone: "America/Juneau",
-        })}, ${nextLowTideFeet} ft`;
+        })}, ${nextLowTide.value} ft`;
 
         // Calculate time until next low tide
-        const timeDifference = nextLowTide - now;
+        const timeDifference = nextLowTide.time - now;
         if (timeDifference > 0) {
           const hours = Math.floor(timeDifference / (1000 * 60 * 60));
           const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
@@ -78,14 +101,13 @@ export const fetchTideLevel = async (setTideLevel) => {
 
       if (validTides.length > 1) {
         // Process the second valid low tide
-        const secondLowTide = new Date(validTides[1].t);
-        const secondLowTideFeet = parseFloat(validTides[1].v).toFixed(2);
-        secondLowTideText = `Later Low Tide: ${secondLowTide.toLocaleTimeString("en-US", {
+        const secondLowTide = validTides[1];
+        secondLowTideText = `Later Low Tide: ${secondLowTide.time.toLocaleTimeString("en-US", {
           hour: "numeric",
           minute: "numeric",
           hour12: true,
           timeZone: "America/Juneau",
-        })}, ${secondLowTideFeet} ft`;
+        })}, ${secondLowTide.value} ft`;
       }
     }
 
