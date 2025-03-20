@@ -5,7 +5,16 @@ export const TideDisplay = () => {
   const [tideLevel, setTideLevel] = useState("Loading...");
 
   useEffect(() => {
+    // Fetch tide level initially
     fetchTideLevel(setTideLevel);
+
+    // Set an interval to refresh data every 5 minutes (300,000 milliseconds)
+    const interval = setInterval(() => {
+      fetchTideLevel(setTideLevel);
+    }, 300000); // 5 minutes
+
+    // Cleanup the interval when the component unmounts
+    return () => clearInterval(interval);
   }, []);
 
   return (
