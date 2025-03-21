@@ -87,7 +87,7 @@ export const TideDisplay = () => {
           if (diff > 0) {
             const hours = Math.floor(diff / (1000 * 60 * 60));
             const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            nextLowTideText += ` (${hours}h ${minutes}m away)`;
+            nextLowTideText += ` (${hours}h ${minutes}m)`;
           }
         }
 
