@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/tidepooling/static/css/main.fcfab430.css",
-    "main.js": "/tidepooling/static/js/main.4a704195.js",
+    "main.js": "/tidepooling/static/js/main.e93556bc.js",
     "static/js/453.f2587719.chunk.js": "/tidepooling/static/js/453.f2587719.chunk.js",
     "index.html": "/tidepooling/index.html",
     "main.fcfab430.css.map": "/tidepooling/static/css/main.fcfab430.css.map",
-    "main.4a704195.js.map": "/tidepooling/static/js/main.4a704195.js.map",
+    "main.e93556bc.js.map": "/tidepooling/static/js/main.e93556bc.js.map",
     "453.f2587719.chunk.js.map": "/tidepooling/static/js/453.f2587719.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.fcfab430.css",
-    "static/js/main.4a704195.js"
+    "static/js/main.e93556bc.js"
   ]
 }
