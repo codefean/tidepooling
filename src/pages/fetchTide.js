@@ -108,7 +108,7 @@ export const TideDisplay = () => {
 
   return (
     <div className="tide-container">
-      <h3 className="tide-title">Tide Levels</h3>
+      <h3 className="tide-title">Tide Levels in Juneau</h3>
       {tideLevel.map((line, index) => (
         <p key={index} className="tide-data">{line}</p>
       ))}
